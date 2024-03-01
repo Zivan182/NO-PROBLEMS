@@ -1,0 +1,23 @@
+.dropdown-content {
+    max-height: 0px;
+    overflow: hidden;
+    /* transition: max-height 1s;
+    transition-delay: overflow 1s; */
+}
+
+.arrow-img {
+    max-height:10px; 
+    max-width: 10px;
+    margin: 5px;
+}
+
+.dropdown-button {
+    display: flex;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    font-size: 15px;
+    font-family: Tahoma;
+    cursor: pointer;
+    
+}

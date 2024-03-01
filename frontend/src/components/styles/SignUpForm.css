@@ -1,0 +1,92 @@
+.signup-form input[type="text"],
+.signup-form input[type="password"] {
+  padding: 5px;
+  font-family: Tahoma;
+  height: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.signup-form input[type="submit"] {
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  /* background: #3943fa;
+  border: 1px solid #1a25fd; */
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: linear-gradient(0deg, rgb(6, 21, 67) 0%, rgb(6, 21, 122) 100%);
+}
+
+.signup-form input[type="submit"]:hover {
+  background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
+  /* background: #212cff; */
+}
+
+.signup-form .button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-form {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  width: 23vw;
+}
+
+.signup-form .list-container {
+  display: flex;
+}
+
+
+.signup-form .title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.signup-form .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+
+.signup-header {
+  padding: 5px;
+  border-radius: 6px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.data-edit-button {
+  background: transparent;
+  border: none;
+  padding: 3px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 0px;
+  position: relative;
+}
+
+.data-edit-button:hover {
+  background: rgb(208, 213, 213);
+}
+
+.data-edit-img {
+  max-width: 20px;
+  max-height: 20px;
+  z-index: 0;
+}
+

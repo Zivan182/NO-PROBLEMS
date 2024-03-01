@@ -1,0 +1,42 @@
+.task-list-item {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.16);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-number {
+    /* color:#5f67ff; */
+    color: rgb(6,21,170);
+    text-decoration: none;
+  }
+
+.task-number:hover {
+    color: rgb(6,21,255);
+    text-decoration: none;
+  }
+
+.task-topics {
+
+}
+
+.task-complexity {
+
+}
+
+.task-middle {
+    font-family: "Times New Roman";
+}
+
+.task-list-item .task-condition {
+    padding: 10px;
+}
+
+
+

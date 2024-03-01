@@ -1,0 +1,57 @@
+.support-form textarea {
+    padding: 10px;
+    font-family: Tahoma;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    width: 30vw;
+    height: 10vh;
+  }
+
+.support-form input[type="submit"] {
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  /* background: #3943fa;
+  border: 1px solid #1a25fd; */
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: linear-gradient(0deg, rgb(6, 21, 67) 0%, rgb(6, 21, 122) 100%);
+}
+
+.support-form input[type="submit"]:hover {
+  background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
+  /* background: #212cff; */
+}
+
+.support-form .button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.support-form {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+
+.support-form .title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.support-form .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+.support-form .support-select-block {  
+    font-size: 13px; 
+}
+

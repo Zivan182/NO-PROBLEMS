@@ -1,0 +1,32 @@
+.footer {
+    background-color: rgb(63, 87, 162);
+    background: linear-gradient(0deg, rgb(78, 107, 194) 0%, rgb(63, 87, 162) 100%);
+    padding: 10px;
+    display: flex;
+    bottom:0;
+    /* width: 100%;
+    box-sizing: border-box; */
+    justify-content: space-around;
+}
+
+.footer button {
+    background-color: rgb(93, 180, 255);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.footer .small-link {
+    font-size: 12px;
+    text-decoration: none;
+    font-family: Tahoma;
+    color:white;
+  }
+
+  .footer .small-link:hover {
+    color:#434cff;
+    text-decoration: none;
+    color:rgb(210, 210, 210);
+  }

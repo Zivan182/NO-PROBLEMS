@@ -1,0 +1,92 @@
+.task-form .upper-part {
+    font-weight: bold;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.task-form .lower-part {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.16);
+    /* display: flex; */
+}
+
+
+.task-form .task-big-data {
+    margin: 10px 0px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-form .task-data {
+    margin: 10px 0px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.task-form .task-small-data {
+    margin: 10px 0px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+}
+
+.select-block {  
+    font-size: 13px; 
+}
+
+
+
+
+.task-form textarea, input {
+    padding: 10px;
+    font-family: Tahoma;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.task-form textarea {
+    height: 12vh;
+    font-family: 'Times New Roman';
+    font-size: 15px;
+}
+
+.task-form textarea:disabled, input:disabled {
+    color: black;
+    background: #fff;
+}
+
+.task-form input[type="submit"] {
+    height: 60%;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    /* background: #3943fa;
+    border: 1px solid #1a25fd; */
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    background: linear-gradient(0deg, rgb(6, 21, 67) 0%, rgb(6, 21, 122) 100%);
+    margin: 10px 10px;
+  }
+
+  .task-form input[type="submit"]:hover {
+    background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
+    /* background: #212cff; */
+  }
+
+  .task-form .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+  }

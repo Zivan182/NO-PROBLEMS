@@ -1,0 +1,7 @@
+.support-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: #f8f9fd;
+  }

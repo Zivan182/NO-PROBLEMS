@@ -1,0 +1,68 @@
+.tasks-page {
+    background-color: #f6f6f6;
+    position: relative;
+}
+
+.tasks-page .upper-part {
+    font-weight: bold;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.tasks-page .lower-part {
+    display: flex;
+}
+
+.tasks-page .lowest-part {
+    display: flex;
+    justify-content: end;
+}
+
+.tasks-page .page-panel {
+    display: flex;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.16);
+    margin: 10px;
+    margin-top: 0px;
+    align-items: center;
+    overflow: hidden;
+
+}
+
+.page-button {
+    display: flex;
+    height: 100%;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.page-button:hover {
+    background-color: rgb(208, 213, 213);
+}
+
+.page-button-disabled {
+    display: flex;
+    height: 100%;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    align-items: center;
+}
+
+.page-text {
+    padding: 10px;
+    display: flex;
+    font-size: 13px;
+}
+
+.page-arrow-img {
+    max-width: 10px;
+    max-height: 10px;
+    z-index: 0;
+
+}
+

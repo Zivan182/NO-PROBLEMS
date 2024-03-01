@@ -1,0 +1,86 @@
+
+
+.task-buttons-panel {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.user-reactions {
+    display: flex;
+}
+
+.solved-img {
+    max-width: 30px;
+    max-height: 30px;
+    z-index: 0;
+}
+
+.not-solved-img {
+    max-width: 37px;
+    max-height: 37px;
+    z-index: 0;
+}
+
+.solved-button {
+    background: transparent;
+    border: none;
+    padding: 0px;
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.liked-img {
+    max-width: 30px;
+    max-height: 30px;
+    z-index: 0;
+}
+
+.not-liked-img {
+    max-width: 30px;
+    max-height: 30px;
+    z-index: 0;
+}
+
+.liked-button {
+    background: transparent;
+    border: none;
+    padding: 0px;
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.task-buttons-panel .tooltip {
+    font-size: 11px;
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.task-buttons-panel .tooltip .tooltip-arrow {
+    display: none;
+
+}
+
+.edit-button {
+    background: transparent;
+    border: none;
+    padding: 0px;
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    right: 0px;
+    position: relative;
+}
+
+.edit-img {
+    max-width: 30px;
+    max-height: 30px;
+    z-index: 0;
+}
+
+
