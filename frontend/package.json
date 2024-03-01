@@ -1,0 +1,42 @@
+{
+  "name": "problems",
+  "version": "1.0.0",
+  "description": "problems website frontend",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --mode development --open --hot",
+    "dev": "webpack serve --mode development",
+    "watch": "webpack --mode development --watch",
+    "build" : "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.atp-fivt.org/fullstack2023a/strogalschikoviv-project"
+  },
+  "author": "Ivan Strogalshchikov",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "css-loader": "^6.10.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.6.0",
+    "react-favicon": "^2.0.3",
+    "style-loader": "^3.3.4",
+    "ts-loader": "^9.5.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.1",
+    "react-select": "^5.8.0",
+    "react-tooltip": "^5.26.3",
+    "typescript": "^5.3.3"
+  }
+}

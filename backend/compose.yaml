@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    container_name: backend2
+    mem_limit: 512m
+    ports:
+      - "80:80"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://service-db:5432/NoProblems
+      - SPRING_DATASOURCE_USERNAME=zivan
+      - SPRING_DATASOURCE_PASSWORD=zivan_password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - service-db
+
+  service-db:
+    image: postgres:14.7-alpine
+    environment:
+      POSTGRES_USER: zivan
+      POSTGRES_PASSWORD: zivan_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infrastructure/db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4:7
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:8081"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  db-data:
+  pgadmin-data:
