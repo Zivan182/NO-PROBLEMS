@@ -10,6 +10,7 @@ export async function requestToServer(
     // if (addToken && !isLoggedIn()) {
     //     redirect("/");
     // }
+    console.log(window.localStorage.getItem("jwtToken"));
 
     return fetch(url, {
         method: method,
@@ -17,7 +18,7 @@ export async function requestToServer(
         headers: (
             addToken ? {
                 'Content-Type': 'application/json; charset=UTF-8',
-                'ApiToken': localStorage.getItem("jwtToken")!
+                'ApiToken': window.localStorage.getItem("jwtToken")!
             } : { 'Content-Type': 'application/json; charset=UTF-8' }
         )
     });

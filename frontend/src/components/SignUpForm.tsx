@@ -1,38 +1,89 @@
 import React, { useState } from "react";
 import "./styles/SignUpForm.css"
 import { Link } from "react-router-dom";
+import { requestToServer } from "../services/UserService";
 
 export function SignUpForm(props : any) {
     const [mode, setMode] = useState(props.mode ? props.mode : "create");
+    const [login, setLogin] = useState("");
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+
+    const handleSubmit = async (event:any) => {
+        event.preventDefault();
+
+        if (login == "" || email == "" || name == "" || surname == "") {
+            setErrorMessage("Введите недостающие личные данные");
+            return;
+        }
+        if (password.length <= 6) {
+            setErrorMessage("Пароль слишком короткий");
+            return; 
+        }
+        if (password != repeatPassword) {
+            setErrorMessage("Пароли не совпадают");
+            return; 
+        }
+
+        const signupData = {
+            login: login,
+            email: email,
+            name: name,
+            surname: surname,
+            password: password
+        }
+        const method = (mode == "create" ? "post" : "put");
+        const url = (mode == "create" ? "/users/signup" : "/users/data/edit");
+        const addToken = (mode == "create" ? false : true);
+
+        requestToServer(method, url, JSON.stringify(signupData), addToken)
+        .then((v) => {  if(v.status >= 400) {
+                            setErrorMessage("Такой логин уже занят"); 
+                            return null;
+                        } 
+                        else 
+                            return v.json();
+        })  
+        .then((v) => {
+                    if (v == null) return;
+                    window.localStorage.setItem("jwtToken", v.token);
+                    window.location.href = "/account";
+        })
+    };
 
     const renderForm = (
         <div className="form">
-            <form>
                 <div className="input-container">
-                    <input type="text" placeholder="Логин" defaultValue={props.login} disabled={mode === "view"}/>
+                    <input type="text" placeholder="Логин" defaultValue={props.login} disabled={mode === "view"} onChange={(e)=>{setLogin(e.target.value); if (errorMessage === "Введите недостающие личные данные" || errorMessage === "Такой логин уже занят") setErrorMessage("")}}/>
                 </div>
                 <div className="input-container">
-                    <input type="text" placeholder="Почта" defaultValue={props.email} disabled={mode === "view"}/>
+                    <input type="text" placeholder="Почта" defaultValue={props.email} disabled={mode === "view"} onChange={(e)=>{setEmail(e.target.value); if (errorMessage === "Введите недостающие личные данные") setErrorMessage("")}}/>
                 </div>
                 <div className="input-container">
-                    <input type="text" placeholder="Имя" defaultValue={props.name} disabled={mode === "view"}/>
+                    <input type="text" placeholder="Имя" defaultValue={props.name} disabled={mode === "view"} onChange={(e)=>{setName(e.target.value); if (errorMessage === "Введите недостающие личные данные") setErrorMessage("")}}/>
                 </div>
                 <div className="input-container">
-                    <input type="text" placeholder="Фамилия" defaultValue={props.surname} disabled={mode === "view"}/>
+                    <input type="text" placeholder="Фамилия" defaultValue={props.surname} disabled={mode === "view"} onChange={(e)=>{setSurname(e.target.value); if (errorMessage === "Введите недостающие личные данные") setErrorMessage("")}}/>
                 </div>
                 {mode != "view" &&
                 <div className="input-container">
-                    <input type="password" placeholder={mode === "edit" ? "Новый пароль" : "Пароль"}/>
+                    <input type="password" placeholder={mode === "edit" ? "Новый пароль" : "Пароль"} onChange={(e)=>{setPassword(e.target.value); if (errorMessage === "Пароль слишком короткий" || errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
                 </div>}
                 {mode != "view" &&
                 <div className="input-container">
-                    <input type="password" placeholder="Повторите пароль"/>
+                    <input type="password" placeholder="Повторите пароль" onChange={(e)=>{setRepeatPassword(e.target.value); if (errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
                 </div>}
+                {mode != "view" && errorMessage != "" &&
+                    <span className="error">{errorMessage}</span>}
                 {mode != "view" &&
                 <div className="button-container">
-                    <input type="submit" value={mode === "edit" ? "Сохранить" : "Зарегистрироваться"}/>
+                    <button className="signup-button" onClick={handleSubmit}>{mode === "edit" ? "Сохранить" : "Зарегистрироваться"}</button>
                 </div>}
-            </form>
         </div>
     );
     return (

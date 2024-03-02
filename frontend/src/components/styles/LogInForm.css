@@ -7,7 +7,7 @@
     border-radius: 6px;
   }
   
-  .login-form input[type="submit"] {
+  .login-button {
     font-weight: bold;
     margin-top: 10px;
     cursor: pointer;
@@ -21,7 +21,7 @@
     background: linear-gradient(0deg, rgb(6, 21, 67) 0%, rgb(6, 21, 122) 100%);
   }
   
-  .login-form input[type="submit"]:hover {
+  .login-button {
     background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
     /* background: #212cff; */
   }

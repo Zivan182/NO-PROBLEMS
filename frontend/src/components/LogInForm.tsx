@@ -15,63 +15,43 @@ export function LogInForm() {
     const handleSubmit = async (event:any) => {
         event.preventDefault();
 
+        const loginData = {
+            login: login,
+            password: password
+        }
 
-        // const params = {
-        //     method: "post",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ "login": login, "password": password }),
-        //   }
-
-        requestToServer("post", "/users/login", 
-            JSON.stringify({ "login": login, "password": password }), false).then(
-                (v) => { if(v.status >= 400) setIsError(true);
-                    else v.json().then((v) => {
+        requestToServer("post", "/users/login", JSON.stringify(loginData), false)
+        .then((v) => {  if(v.status >= 400) {
+                            setIsError(true); 
+                            return null;
+                        } 
+                        else 
+                            return v.json();
+        })  
+        .then((v) => {  if (v == null) return;
                         window.localStorage.setItem("jwtToken", v.token);
                         window.location.href = "/account";
-                });
-                }
-            )
+        })
       
-
-        // const response = await fetch("/users/login", params);
-        // console.log(response.status);
-        // console.log(response.json());
-        // if (response.status >= 400) {
-        //     setIsError(true);
-        // }
-
-        // else {
-        //     const {jwtToken} = await response.json();
-        //     console.log(jwtToken);
-        //     window.localStorage.saveItem("jwtToken", jwtToken);
-        //     window.location.href = "/";
-
-        // }
     };
 
 
     const renderForm = (
         <div className="form">
-            <form onSubmit={handleSubmit}>
                 <div className="input-container">
-                    {/* <label>Логин </label> */}
                     <input type="text" placeholder="Логин" onChange={(e)=>{setLogin(e.target.value); if (isError) setIsError(false)}}/>
                 </div>
                 <div className="input-container">
                     <div>
-                        {/* <label><b>Пароль</b> </label> */}
                     </div>
                     <input type="password" placeholder="Пароль" onChange={(e)=>{setPassword(e.target.value); if (isError) setIsError(false)}}/>
                     <Link to="/support" className="small-link">Забыли пароль?</Link>
-                    {isError &&
+                </div>
+                {isError &&
                     <span className="error">Неправильные данные входа</span>}
-                </div>
                 <div className="button-container">
-                    <input type="submit" value="Войти"/>
+                    <button className="login-button" onClick={handleSubmit}>Войти</button>
                 </div>
-            </form>
         </div>
     );
     return (

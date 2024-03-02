@@ -7,7 +7,7 @@
   border-radius: 6px;
 }
 
-.signup-form input[type="submit"] {
+.signup-button {
   font-weight: bold;
   margin-top: 10px;
   cursor: pointer;
@@ -21,7 +21,7 @@
   background: linear-gradient(0deg, rgb(6, 21, 67) 0%, rgb(6, 21, 122) 100%);
 }
 
-.signup-form input[type="submit"]:hover {
+.signup-button:hover {
   background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
   /* background: #212cff; */
 }
@@ -41,6 +41,11 @@
 
 .signup-form .list-container {
   display: flex;
+}
+
+.signup-form .error {
+  color: red;
+  font-size: 12px;
 }
 
 
