@@ -67,7 +67,7 @@ public class UserController {
         userDto.setRoles(List.of(role));
         userDto = userService.saveUser(userDto);
         if(userDto == null) {
-            return ResponseEntity.status(405).body("User with such login exists");
+            return ResponseEntity.badRequest().body("User with such login exists");
         }
         User user = userConverter.toEntity(userDto);
         String token = jwtTokenProvider.generateToken(new UserPrincipal(user.getId(), user.getLogin(), user.getPassword(), user.getRoles()));

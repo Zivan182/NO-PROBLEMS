@@ -24,7 +24,10 @@ export function AccountPage() {
 
     const [isData, setIsData] = useState(true);
 
+    const [isLoaded, setIsLoaded] = useState(false);
+
     useEffect(() => {
+        setIsLoaded(false);
         requestToServer("get", "/users/data")
         .then((v) => {  if(v.status >= 400) {
                             window.localStorage.removeItem("jwtToken");
@@ -40,6 +43,7 @@ export function AccountPage() {
                         setName(v.name);
                         setSurname(v.surname);
         })
+        .then(()=>{setIsLoaded(true)})
 }, []);
 
     const exitClick = async (event:any) => {
@@ -70,7 +74,7 @@ export function AccountPage() {
 
             </div>
             <div className="account-content">
-                {isData &&
+                {isData && isLoaded &&
                     <SignUpForm {...getUserProps()}/>
                 }
                 {!isData &&

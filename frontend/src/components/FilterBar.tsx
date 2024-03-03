@@ -6,23 +6,24 @@ import Select from 'react-select';
 import { Link, useSearchParams } from "react-router-dom";
 
 var topicsOptions = [
-    { value: '1', label: 'Алгебра' },
-    { value: '2', label: 'Tеория чисел' },
-    { value: '3', label: 'Геометрия' },
-    { value: '4', label: 'Графы' },
-    { value: '5', label: 'Доски' },
-    { value: '6', label: 'Игры и стратегии' },
-    { value: '7', label: 'Комбинаторная геометрия' },
-    { value: '8', label: 'Комбинаторика (прочее)' }
+    { value: 'Алгебра', label: 'Алгебра' },
+    { value: 'Tеория чисел', label: 'Tеория чисел' },
+    { value: 'Геометрия', label: 'Геометрия' },
+    { value: 'Графы', label: 'Графы' },
+    { value: 'Доски', label: 'Доски' },
+    { value: 'Игры и стратегии', label: 'Игры и стратегии' },
+    { value: 'Комбинаторная геометрия', label: 'Комбинаторная геометрия' },
+    { value: 'Комбинаторика (прочее)', label: 'Комбинаторика (прочее)' },
+    { value: 'Неравенства', label: 'Неравенства' }
     
   ];
 
   var olympiadOptions = [
-    { value: '1', label: 'Региональный этап ВСОШ' },
-    { value: '2', label: 'Заключительный этап ВСОШ' },
-    { value: '3', label: 'УТЮМ' },
-    { value: '4', label: 'ЮМТ' },
-    { value: '5', label: 'Кубок памяти А.Н. Колмогорова' },
+    { value: 'Региональный этап ВСОШ', label: 'Региональный этап ВСОШ' },
+    { value: 'Заключительный этап ВСОШ', label: 'Заключительный этап ВСОШ' },
+    { value: 'УТЮМ', label: 'УТЮМ' },
+    { value: 'ЮМТ', label: 'ЮМТ' },
+    { value: 'Кубок памяти А.Н. Колмогорова', label: 'Кубок памяти А.Н. Колмогорова' },
     
   ];
 
@@ -35,6 +36,15 @@ function getOnSelectChange(setValue : any) {
     return (
         (e : any) => {
             setValue(Array.isArray(e) ? e.map(x => x.value) : []);}
+    );
+}
+
+function getOptions(v : String) {
+    return (
+        {
+            value: v,
+            label: v
+        }
     );
 }
 
@@ -51,7 +61,7 @@ function SelectPanel(props: any) {
                 placeholder={props.placeholder}
                 onChange={getOnSelectChange(props.setSelectedValue)}
                 
-                defaultValue={props.selectedValue ? props.selectedValue.map((v : string) => props.options[Number(v) - 1]):null}
+                defaultValue={props.selectedValue ? props.selectedValue.map(getOptions):null}
             />
         </div>
     );
@@ -102,8 +112,8 @@ export function FilterBar(props: any) {
     const [topicsValue, setTopicsValue] = useState(props.filterProps.topic);
     const [olympiadsValue, setOlympiadsValue] = useState(props.filterProps.olympiad);
 
-    const [complexityValue, setComplexityValue] = useState({from: props.filterProps.complexity_from ? [props.filterProps.complexity_from] : [], to: props.filterProps.complexity_to ? [props.filterProps.complexity_to] : []});
-    const [yearValue, setYearValue] = useState({from: props.filterProps.year_from ? [props.filterProps.year_from] : [], to: props.filterProps.year_to ? [props.filterProps.year_to] : []});
+    const [complexityValue, setComplexityValue] = useState({from: props.filterProps.complexityfrom ? [props.filterProps.complexityfrom] : [], to: props.filterProps.complexityto ? [props.filterProps.complexityto] : []});
+    const [yearValue, setYearValue] = useState({from: props.filterProps.yearfrom ? [props.filterProps.yearfrom] : [], to: props.filterProps.yearto ? [props.filterProps.yearto] : []});
 
 
     const [likedValue, setLikedValue] = useState({yes: props.filterProps.liked.includes("yes") ? ["yes"] : [], no: props.filterProps.liked.includes("no") ? ["no"] : []});
@@ -119,10 +129,10 @@ export function FilterBar(props: any) {
             search: searchValue,
             topic: topicsValue,
             olympiad: olympiadsValue,
-            complexity_from: complexityValue.from,
-            complexity_to: complexityValue.to,
-            year_from: yearValue.from,
-            year_to: yearValue.to,
+            complexityfrom: complexityValue.from,
+            complexityto: complexityValue.to,
+            yearfrom: yearValue.from,
+            yearto: yearValue.to,
             liked: [...likedValue.yes, ...likedValue.no],
             solved: [...solvedValue.yes, ...solvedValue.no],
             added: [...myTaskValue.yes, ...myTaskValue.no],

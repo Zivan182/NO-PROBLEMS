@@ -24,6 +24,4 @@ public class FilterParams {
     private List<String> added;  
 
     private Long page;
-
-    private Long whoAddedId;
 }

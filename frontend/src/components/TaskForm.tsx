@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/TaskForm.css";
 import Select from 'react-select';
 import { TaskButtonPanel } from "./TaskButtonsPanel";
-import { isLoggedIn } from "../services/UserService";
+import { isLoggedIn, requestToServer } from "../services/UserService";
 
 
 var topicsOptions = [
@@ -26,6 +26,13 @@ var topicsOptions = [
     
   ];
 
+function getOnSelectChange(setValue : any) {
+    return (
+        (e : any) => {
+            setValue(e.value);}
+    );
+}
+
 
 function SelectPanel(props: any) {
     return(
@@ -37,6 +44,7 @@ function SelectPanel(props: any) {
                 className="select-block"
                 classNamePrefix="select"
                 placeholder={props.placeholder}
+                onChange={getOnSelectChange(props.setSelectedValue)}
                 defaultValue={props.defaultValue ? {value: props.defaultValue, label: props.defaultValue} : null}
                 styles={{
                     control: (baseStyles) => ({
@@ -59,6 +67,70 @@ function SelectPanel(props: any) {
 }
 
 export function TaskForm(props:any) {
+    const [id, setId] = useState(props.id);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const [condition, setCondition] = useState(props.condition);
+    const [solution, setSolution] = useState(props.solution);
+    const [topic, setTopic] = useState(props.topic);
+    const [olympiad, setOlympiad] = useState(props.olympiad);
+    const [complexity, setComplexity] = useState(props.complexity);
+    const [year, setYear] = useState(props.year);
+    const [grade, setGrade] = useState(props.grade);
+    const [author, setAuthor] = useState(props.author);
+
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = async (event:any) => {
+        event.preventDefault();
+
+        if (condition == "") {
+            setErrorMessage("Введите условие");
+            return;
+        }
+
+        if (topic == "") {
+            setErrorMessage("Выберите тему");
+            return;
+        }
+
+        const taskData = id ? {
+            id: id,
+            condition: condition,
+            solution: solution,
+            topic: topic,
+            olympiad: olympiad,
+            complexity: complexity,
+            year: year,
+            grade: grade,
+            author: author,
+        } :
+        {
+            condition: condition,
+            solution: solution,
+            topic: topic,
+            olympiad: olympiad,
+            complexity: complexity,
+            year: year,
+            grade: grade,
+            author: author,
+        }
+
+        const method = id ? "put" : "post";
+        const url = id ? "/tasksinfo/" + `${id}` + "/edit" : "/tasksinfo/add";
+
+        requestToServer(method, url, JSON.stringify(taskData))
+        .then((v) => {  if(v.status >= 400) {
+                            window.localStorage.removeItem("jwtToken");
+                            window.location.href = "/login"; 
+                            return null;
+                        } 
+                        else 
+                            window.location.reload()
+        })  
+    };
+
+
     return(
         <div className="task-form">
         <div className="upper-part">
@@ -67,49 +139,51 @@ export function TaskForm(props:any) {
         <div className="lower-part">
                 <div className="task-big-data">
                     Условие
-                    <textarea defaultValue={props.condition} disabled={props.disabled}/>
+                    <textarea defaultValue={props.condition} disabled={props.disabled} onChange={(e)=>setCondition(e.target.value)}/>
                 </div>
                 {props.disabled && isLoggedIn() &&
                 <TaskButtonPanel {...props}/>}
 
                 <div className="task-big-data">
                     Решение
-                    <textarea defaultValue={props.solution} disabled={props.disabled}/>
+                    <textarea defaultValue={props.solution} disabled={props.disabled} onChange={(e)=>setSolution(e.target.value)}/>
                 </div>
 
 
                     <div style={{display: "flex", gap: "3vw"}}>
                         <div className="task-data">
                             Тема
-                            <SelectPanel name="topic-select" options={topicsOptions} placeholder="Выберите тему" defaultValue={props.topic} disabled={props.disabled}/>
+                            <SelectPanel name="topic-select" options={topicsOptions} placeholder="Выберите тему" defaultValue={props.topic} disabled={props.disabled} setSelectedValue={setTopic}/>
                         </div>
                         <div className="task-data">
                             Олимпиада
-                            <SelectPanel name="olympiad-select" options={olympiadOptions} placeholder="Выберите олимпиаду" defaultValue={props.olympiad} disabled={props.disabled}/>
+                            <SelectPanel name="olympiad-select" options={olympiadOptions} placeholder="Выберите олимпиаду" defaultValue={props.olympiad} disabled={props.disabled} setSelectedValue={setOlympiad}/>
                         </div>
                         <div className="task-data">
                             Автор 
-                            <input type="text" defaultValue={props.author} disabled={props.disabled}/>
+                            <input type="text" defaultValue={props.author} disabled={props.disabled} onChange={(e)=>setAuthor(e.target.value)}/>
                         </div>
                     </div>
                     <div style={{display: "flex", gap: "3vw", position: "relative"}}>
                         <div className="task-small-data">
                             Сложность
-                            <input type="number" min="1" max="10" placeholder="от 1 до 10" defaultValue={props.complexity} disabled={props.disabled}/>
+                            <input type="number" min="1" max="10" placeholder="от 1 до 10" defaultValue={props.complexity} disabled={props.disabled} onChange={(e)=>setComplexity(e.target.value)}/>
                         </div>
                         <div className="task-small-data">
                             Год
-                            <input type="number" min="2000" max="2024" defaultValue={props.year} disabled={props.disabled}/>
+                            <input type="number" min="2000" max="2024" defaultValue={props.year} disabled={props.disabled} onChange={(e)=>setYear(e.target.value)}/>
                         </div>
                         <div className="task-small-data">
                             Класс
-                            <input type="number" defaultValue={props.grade} disabled={props.disabled}/>
+                            <input type="number" defaultValue={props.grade} disabled={props.disabled} onChange={(e)=>setGrade(e.target.value)}/>
                         </div>
                         {props.disabled != true &&
                         <div className="button-container">
-                            <input type="submit" value={props.id ? "Сохранить" : "Добавить"} disabled={props.disabled}/>
+                            <button className="task-submit-button" onClick={handleSubmit}>{props.id ? "Сохранить" : "Добавить"}</button>
                         </div>}
-                    </div>    
+                    </div> 
+                    {props.disabled != true && errorMessage != "" &&
+                    <span className="error">{errorMessage}</span>}   
             </div>
         </div>
     );

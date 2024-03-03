@@ -5,10 +5,10 @@ import { requestToServer } from "../services/UserService";
 
 export function SignUpForm(props : any) {
     const [mode, setMode] = useState(props.mode ? props.mode : "create");
-    const [login, setLogin] = useState("");
-    const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
+    const [login, setLogin] = useState(props.login);
+    const [email, setEmail] = useState(props.email);
+    const [name, setName] = useState(props.name);
+    const [surname, setSurname] = useState(props.surname);
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -21,7 +21,11 @@ export function SignUpForm(props : any) {
             setErrorMessage("Введите недостающие личные данные");
             return;
         }
-        if (password.length <= 6) {
+        if (mode != "edit" && password.length <= 6) {
+            setErrorMessage("Пароль слишком короткий");
+            return; 
+        }
+        if (mode === "edit" && ((password.length > 0 && password.length <= 6) || (password.length == 0 && repeatPassword.length > 0))) {
             setErrorMessage("Пароль слишком короткий");
             return; 
         }
@@ -46,8 +50,12 @@ export function SignUpForm(props : any) {
                             setErrorMessage("Такой логин уже занят"); 
                             return null;
                         } 
-                        else 
-                            return v.json();
+                        if (mode == "edit") {
+                            window.location.href = "/account";
+                            return null;
+                        } 
+                        
+                        return v.json();
         })  
         .then((v) => {
                     if (v == null) return;

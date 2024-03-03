@@ -29,13 +29,13 @@ public class TaskDto {
         taskForUser.setId(id);
         taskForUser.setCondition(condition);
         taskForUser.setSolution(solution);
-        taskForUser.setTopic(topic);
-        taskForUser.setOlympiad(olympiad);
+        taskForUser.setTopic(topic != null ? topic.getName() : null);
+        taskForUser.setOlympiad(olympiad != null ? olympiad.getName() : null);
         taskForUser.setComplexity(complexity);
         taskForUser.setYear(year);
         taskForUser.setGrade(grade);
         taskForUser.setAuthor(author);
-        taskForUser.setWhoAdded(whoAdded);
+        taskForUser.setWhoAdded(whoAdded != null ? whoAdded.getLogin() : null);
         return taskForUser;
     }
 }

@@ -40,6 +40,7 @@ public class ReactionServiceImpl implements ReactionService {
         likeReactionDto.setUser(user);
         likeReactionDto.setTask(task);
         LikeReaction newLikeReaction = likeReactionRepository.save(likeReactionConverter.toEntity(likeReactionDto));
+        System.out.println("Service: Like was created");
         return likeReactionConverter.toDto(newLikeReaction);
 
     }
@@ -57,6 +58,7 @@ public class ReactionServiceImpl implements ReactionService {
             return;
         }
         likeReactionRepository.deleteById(likeReactionDto.getId());
+        System.out.println("Service: Like was deleted");
 
     }
 

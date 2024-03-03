@@ -12,13 +12,16 @@ export async function requestToServer(
     // }
     console.log(window.localStorage.getItem("jwtToken"));
 
+    const TokenToSend = window.localStorage.getItem("jwtToken") != null ? window.localStorage.getItem("jwtToken") : "";
+
+    console.log(TokenToSend);
     return fetch(url, {
         method: method,
         body: body,
         headers: (
             addToken ? {
                 'Content-Type': 'application/json; charset=UTF-8',
-                'ApiToken': window.localStorage.getItem("jwtToken")!
+                'ApiToken': TokenToSend!
             } : { 'Content-Type': 'application/json; charset=UTF-8' }
         )
     });

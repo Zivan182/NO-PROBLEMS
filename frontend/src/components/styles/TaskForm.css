@@ -61,7 +61,7 @@
     background: #fff;
 }
 
-.task-form input[type="submit"] {
+.task-form .task-submit-button {
     height: 60%;
     font-weight: bold;
     cursor: pointer;
@@ -76,9 +76,14 @@
     margin: 10px 10px;
   }
 
-  .task-form input[type="submit"]:hover {
+  .task-form .task-submit-button {
     background: linear-gradient(0deg, rgb(6, 21, 120) 20%, rgb(6, 21, 160) 100%);
     /* background: #212cff; */
+  }
+
+  .task-form .error {
+    color: red;
+    font-size: 12px;
   }
 
   .task-form .button-container {
