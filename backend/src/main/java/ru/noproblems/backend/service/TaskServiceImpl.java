@@ -59,6 +59,7 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> getTasksByFilters(FilterParams filters, Long userId) {
         Specification<Task> sp = TaskSpecifications.wasAddedByAdminOr(userId);
 
+
         if (filters.getAdded() != null && filters.getAdded().size() == 1 && userId != null) {
             Boolean cond = filters.getAdded().get(0).equals("yes");
             sp = sp.and(TaskSpecifications.AddedBy(userId, cond));
@@ -103,16 +104,11 @@ public class TaskServiceImpl implements TaskService {
         }
         if (filters.getLiked() != null && filters.getLiked().size() == 1 && userId != null) {
             Boolean cond = filters.getLiked().get(0).equals( "yes");
-            if (cond) {
-                sp = sp.and(TaskSpecifications.LikedBy(userId));
-            }
-            else {
-                sp = sp.and(TaskSpecifications.NotLikedBy(userId));
-            }
+            sp = sp.and(TaskSpecifications.LikedBy(userId, cond));
         }
 
         if (filters.getSolved() != null && filters.getSolved().size() == 1 && userId != null) {
-            Boolean cond = (filters.getSolved().get(0) == "yes");
+            Boolean cond = filters.getSolved().get(0).equals( "yes");
             sp = sp.and(TaskSpecifications.SolvedBy(userId, cond));
 
         }

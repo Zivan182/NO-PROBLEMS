@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -72,7 +71,7 @@ public class TaskController {
             for (TaskDto taskDto : tasksDto) {
                 TaskForUser taskForUser = taskDto.toTaskForUser();
                 
-                taskForUser.setAdded(taskDto.getWhoAdded().getId() == userId);
+                taskForUser.setAdded(taskDto.getWhoAdded().getId().equals(userId));
                 UserDto userDto = userService.getUserById(userId);
                 LikeReactionDto likeReactionDto = reactionService.getLikeReaction(userDto, taskDto);
                 taskForUser.setLiked(likeReactionDto != null);
@@ -236,7 +235,8 @@ public class TaskController {
             if (!taskDto.getWhoAdded().getIsAdmin()) {
                 return ResponseEntity.status(406).body("Permission denied");
             }
-            return ResponseEntity.ok(taskDto);
+            TaskForUser taskForUser = taskDto.toTaskForUser();
+            return ResponseEntity.ok(taskForUser);
         }
         else {
             JwtTokenDto token = jwtTokenService.getTokenByName(jwtToken);
@@ -244,12 +244,12 @@ public class TaskController {
                 return ResponseEntity.status(407).body("Invalid token");
             }
             Long userId = jwtTokenProvider.getUserIdFromToken(jwtToken);
-            if (!taskDto.getWhoAdded().getIsAdmin() && taskDto.getWhoAdded().getId() != userId) {
+            if (!taskDto.getWhoAdded().getIsAdmin() && !taskDto.getWhoAdded().getId().equals(userId)) {
                 return ResponseEntity.status(408).body("Permission denied");
             }
             UserDto userDto = userService.getUserById(userId);
             TaskForUser taskForUser = taskDto.toTaskForUser();
-            taskForUser.setAdded(taskDto.getWhoAdded().getId() == userId);
+            taskForUser.setAdded(taskDto.getWhoAdded().getId().equals(userId));
 
             LikeReactionDto likeReactionDto = reactionService.getLikeReaction(userDto, taskDto);
             taskForUser.setLiked(likeReactionDto != null);
@@ -278,11 +278,11 @@ public class TaskController {
 
         Long userId = jwtTokenProvider.getUserIdFromToken(jwtToken);
         TaskDto taskDto = taskService.getDtoFromRequest(taskRequest);
-        if (taskId != taskDto.getId()) {
+        if (!taskDto.getId().equals(taskId)) {
             return ResponseEntity.status(405).body("Invalid data to change");
         }
 
-        if (userId != taskService.getTaskById(taskId).getWhoAdded().getId()) {
+        if (!taskService.getTaskById(taskId).getWhoAdded().getId().equals(userId)) {
             return ResponseEntity.status(403).body("Permission denied");
         }
 

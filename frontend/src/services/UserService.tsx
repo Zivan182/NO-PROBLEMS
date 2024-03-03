@@ -7,9 +7,7 @@ export async function requestToServer(
     addToken: boolean = true
 ) 
 {
-    // if (addToken && !isLoggedIn()) {
-    //     redirect("/");
-    // }
+
     console.log(window.localStorage.getItem("jwtToken"));
 
     const TokenToSend = window.localStorage.getItem("jwtToken") != null ? window.localStorage.getItem("jwtToken") : "";
@@ -34,7 +32,7 @@ export async function logOut() {
         "/users/logout"
     ).then((v) => {
         window.localStorage.removeItem("jwtToken");
-        window.location.href = "/";
+        window.location.href = "/login";
     });
 }
 

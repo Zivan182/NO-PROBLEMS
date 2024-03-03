@@ -4,10 +4,11 @@ import { DropDown } from "./DropDown";
 // import Select from "react-select/dist/declarations/src/Select";
 import Select from 'react-select';
 import { Link, useSearchParams } from "react-router-dom";
+import { isLoggedIn } from "../services/UserService";
 
 var topicsOptions = [
     { value: 'Алгебра', label: 'Алгебра' },
-    { value: 'Tеория чисел', label: 'Tеория чисел' },
+    { value: 'ТЧ', label: 'ТЧ' },
     { value: 'Геометрия', label: 'Геометрия' },
     { value: 'Графы', label: 'Графы' },
     { value: 'Доски', label: 'Доски' },
@@ -177,17 +178,17 @@ export function FilterBar(props: any) {
                     <FromToPanel min="2000" max="2024" fromToValue={yearValue} setFromToValue={setYearValue}/>
                 }/>
 
-                {(window.localStorage.getItem("loggedIn") === "true") && 
+                {isLoggedIn() && 
                 <DropDown text="В избранном" button_class="filter-button" content={
                     <YesNoPanel yesNoValue={likedValue} setYesNoValue={setLikedValue}/>                
                 }/>}
 
-                {(window.localStorage.getItem("loggedIn") === "true") &&
+                {isLoggedIn() &&
                 <DropDown text="Решено" button_class="filter-button" content={  
                     <YesNoPanel yesNoValue={solvedValue} setYesNoValue={setSolvedValue}/>                
                 }/>}
 
-                {(window.localStorage.getItem("loggedIn") === "true") &&
+                {isLoggedIn() &&
                 <DropDown text="Мои задачи" button_class="filter-button" content={
                     <YesNoPanel yesNoValue={myTaskValue} setYesNoValue={setMyTaskValue}/>
                 }/>}

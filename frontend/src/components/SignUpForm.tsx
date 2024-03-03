@@ -21,14 +21,11 @@ export function SignUpForm(props : any) {
             setErrorMessage("Введите недостающие личные данные");
             return;
         }
-        if (mode != "edit" && password.length <= 6) {
+        if (password.length <= 6) {
             setErrorMessage("Пароль слишком короткий");
             return; 
         }
-        if (mode === "edit" && ((password.length > 0 && password.length <= 6) || (password.length == 0 && repeatPassword.length > 0))) {
-            setErrorMessage("Пароль слишком короткий");
-            return; 
-        }
+
         if (password != repeatPassword) {
             setErrorMessage("Пароли не совпадают");
             return; 
@@ -80,11 +77,11 @@ export function SignUpForm(props : any) {
                 </div>
                 {mode != "view" &&
                 <div className="input-container">
-                    <input type="password" placeholder={mode === "edit" ? "Новый пароль" : "Пароль"} onChange={(e)=>{setPassword(e.target.value); if (errorMessage === "Пароль слишком короткий" || errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
+                    <input type="password" placeholder={mode === "edit" ? "Новый пароль" : "Пароль"} defaultValue={props.password} onChange={(e)=>{setPassword(e.target.value); if (errorMessage === "Пароль слишком короткий" || errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
                 </div>}
                 {mode != "view" &&
                 <div className="input-container">
-                    <input type="password" placeholder="Повторите пароль" onChange={(e)=>{setRepeatPassword(e.target.value); if (errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
+                    <input type="password" placeholder="Повторите пароль" defaultValue={props.password} onChange={(e)=>{setRepeatPassword(e.target.value); if (errorMessage === "Пароли не совпадают") setErrorMessage("")}}/>
                 </div>}
                 {mode != "view" && errorMessage != "" &&
                     <span className="error">{errorMessage}</span>}

@@ -66,7 +66,7 @@ public class TaskSpecifications {
     public static Specification<Task> conditionContains(String search) {
         return new Specification<Task>() {
             public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-                return cb.like(root.get("condition"), "%${search}%");
+                return cb.like(cb.lower(root.get("condition")), "%" + search.toLowerCase() + "%");
             }
         };
     }
@@ -84,30 +84,38 @@ public class TaskSpecifications {
         };
     }
 
-    public static Specification<Task> LikedBy(Long userId) {
+    public static Specification<Task> LikedBy(Long userId, Boolean cond) {
         return new Specification<Task>() {
             public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 Join<Task, LikeReaction> likesJoin = root.join("likeReactions");
-                return cb.equal(likesJoin.get("user").get("id"), userId);
+                //return cb.equal(likesJoin.get("user").get("id"), userId);
 
-                // return (cond 
-                //         ? cb.equal(likesJoin.get("user").get("id"), userId)
-                //         : cb.notEqual(likesJoin.get("user").get("id"), userId));
+                return (cond 
+                        ? cb.equal(likesJoin.get("user").get("id"), userId)
+                        : cb.notEqual(likesJoin.get("user").get("id"), userId));
             }
         };
     }
 
-    public static Specification<Task> NotLikedBy(Long userId) {
+    public static Specification<Task> NotLiked() {
         return new Specification<Task>() {
             public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                return cb.isEmpty(root.get("likeReactions"));
+
+            }
+        };
+    }
+
+    public static Specification<Task> NotLikedBy(Long userId, Boolean cond) {
+        return new Specification<Task>() {
+            public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                //var pred1 = cb.isEmpty(root.get("likeReactions"));
                 Join<Task, LikeReaction> likesJoin = root.join("likeReactions");
-                // var pred1 = cb.isNull(root.get("likeReactions"));
-                var pred2 = cb.isEmpty(root.get("likeReactions"));
-                var pred3 = cb.equal(likesJoin.get("user").get("id"), userId).not();
-                return cb.or(pred2,  pred3);
-                // return (cond 
-                //         ? cb.equal(likesJoin.get("user").get("id"), userId)
-                //         : cb.notEqual(likesJoin.get("user").get("id"), userId));
+                // var pred2 = cb.equal(likesJoin.get("user").get("id"), userId).not();
+                // return cb.or(pred1,  pred2);
+                return (cond 
+                        ? cb.equal(likesJoin.get("user").get("id"), userId)
+                        : cb.notEqual(likesJoin.get("user").get("id"), userId));
             }
         };
     }
@@ -117,10 +125,10 @@ public class TaskSpecifications {
         return new Specification<Task>() {
             public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 Join<Task, SolveReaction> solvesJoin = root.join("solveReactions");
-                return cb.equal(solvesJoin.get("user").get("id"), userId);
-                // return (cond 
-                //         ? cb.isMember(userId, solvesJoin.get("user").get("id"))
-                //         : cb.isNotMember(userId, solvesJoin.get("user").get("id")));
+                //return cb.equal(solvesJoin.get("user").get("id"), userId);
+                return (cond 
+                        ? cb.equal(solvesJoin.get("user").get("id"), userId)
+                        : cb.notEqual(solvesJoin.get("user").get("id"), userId));
             }
         };
     }

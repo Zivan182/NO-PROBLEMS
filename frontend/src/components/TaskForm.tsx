@@ -7,7 +7,7 @@ import { isLoggedIn, requestToServer } from "../services/UserService";
 
 var topicsOptions = [
     { value: 'Алгебра', label: 'Алгебра' },
-    { value: 'Tеория чисел', label: 'Tеория чисел' },
+    { value: 'ТЧ', label: 'ТЧ' },
     { value: 'Геометрия', label: 'Геометрия' },
     { value: 'Графы', label: 'Графы' },
     { value: 'Доски', label: 'Доски' },

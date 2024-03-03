@@ -4,7 +4,7 @@ import "./styles/TaskPage.css"
 import { Tooltip } from "react-tooltip";
 import { DropDown } from "../DropDown";
 import { TaskForm } from "../TaskForm";
-import { requestToServer } from "../../services/UserService";
+import { isLoggedIn, requestToServer } from "../../services/UserService";
 
 
 export function TaskPage() {    
@@ -48,6 +48,7 @@ export function TaskPage() {
     }
 
     useEffect(() => {
+        console.log("AAAAAA1");
         setIsLoaded(false);
         requestToServer("get", "/tasksinfo/" + `${id}`)
         .then((v) => {  if(v.status >= 400) {
@@ -68,12 +69,15 @@ export function TaskPage() {
                         setGrade(v.grade);
                         setAuthor(v.author);
                         setWhoAdded(v.whoAdded.login);
-                        setLiked(v.liked);
-                        setSolved(v.solved);
-                        setAdded(v.added);
+                        if (isLoggedIn()) {
+                            setLiked(v.liked);
+                            setSolved(v.solved);
+                            setAdded(v.added);
+                        }
         })
         .then(()=>{setIsLoaded(true)})
 }, []);
+    console.log("AAAAAA2");
     return(
         <div className="task-page">
             {isLoaded &&
