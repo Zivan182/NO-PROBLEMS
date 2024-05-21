@@ -1,4 +1,4 @@
-Проект по курсу "Fullstack разработка". 
+Проект "NO PROBLEMS". 
 
 Frontend реализован на React, backend на Spring.
 
