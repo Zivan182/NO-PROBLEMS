@@ -11,6 +11,7 @@ Frontend реализован на React, backend на Spring.
 ![image](https://github.com/Zivan182/Fullstack-2023/assets/71238076/965eb7fd-c18e-4f05-9af4-5f98aaf3cc27)
 ![image](https://github.com/Zivan182/Fullstack-2023/assets/71238076/e01a21ae-1dee-4a1b-899e-550a24843da9)
 
+https://github.com/user-attachments/assets/2655a5e7-721e-4871-861a-de9c7e365098
 
 
 
